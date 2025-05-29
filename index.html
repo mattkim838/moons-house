@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Moon's House</title>
+  <link rel="stylesheet" href="App.css">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+    }
+    .nav {
+      display: flex;
+      gap: 1rem;
+      background: #333;
+      padding: 1rem;
+      justify-content: center;
+    }
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .nav a:hover, .nav a.active {
+      background: #444;
+    }
+    .home-bg {
+      min-height: 80vh;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .home-title {
+      color: white;
+      text-shadow: 2px 2px 10px #000;
+      font-size: 2.5rem;
+      background: rgba(0,0,0,0.3);
+      padding: 1rem 2rem;
+      border-radius: 8px;
+    }
+    .page {
+      padding: 2rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="#" data-page="home" class="active">Main</a>
+    <a href="#" data-page="about">About us</a>
+    <a href="#" data-page="photo">Photo</a>
+    <a href="#" data-page="video">Video</a>
+    <a href="#" data-page="product">Product</a>
+  </nav>
+  <div id="content"></div>
+
+  <script>
+    const pages = {
+      home: `
+        <div class="home-bg" style="background-image: url('IMG_2473.JPEG');">
+          <h1 class="home-title">Welcome to Moon's House</h1>
+        </div>
+      `,
+      about: `
+        <div class="page"><h2>About Us</h2><p>Info about Moon's House.</p></div>
+      `,
+      photo: `
+        <div class="page"><h2>Photo Gallery</h2><p>Photos will go here.</p></div>
+      `,
+      video: `
+        <div class="page"><h2>Video Gallery</h2><p>Videos will go here.</p></div>
+      `,
+      product: `
+        <div class="page"><h2>Products</h2><p>Product info goes here.</p></div>
+      `
+    };
+
+    function loadPage(page) {
+      document.getElementById('content').innerHTML = pages[page] || pages.home;
+      document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+      document.querySelector(`.nav a[data-page="${page}"]`).classList.add('active');
+    }
+
+    document.querySelectorAll('.nav a').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        loadPage(a.dataset.page);
+      });
+    });
+
+    // Load the home page by default
+    loadPage('home');
+  </script>
+</body>
+</html>
