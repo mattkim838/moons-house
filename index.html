@@ -115,10 +115,10 @@
     function initTravelMap() {
       if(document.getElementById('map')) {
         //var map = L.map('map').setView([49.5, -123], 5);
-        map.fitBounds(bounds, {padding: [40, 40]});
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+        //map.fitBounds(bounds, {padding: [40, 40]});
+        //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          //attribution: '© OpenStreetMap contributors'
+        //}).addTo(map);
             // Example pins for where you've travelled. Add more as you wish!
         var places = [
             { name: "Vancouver, Canada", coords: [49.2827, -123.1207] },
@@ -146,6 +146,10 @@
             .openTooltip();
           bounds.push(place.coords);
         });
+        map.fitBounds(bounds, {padding: [40, 40]});
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
       }
     }
     // END: Add this function
