@@ -91,11 +91,34 @@
         <div class="page"><h2>Products</h2><p>Product info goes here.</p></div>
       `
     };
-
+    // START: Add this function after the pages object
+    function initTravelMap() {
+      if(document.getElementById('map')) {
+        var map = L.map('map').setView([20, 0], 2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+            // Example pins for where you've travelled. Add more as you wish!
+        var places = [
+          { name: "Seoul, South Korea", coords: [37.5665, 126.9780] },
+          { name: "New York, USA", coords: [40.7128, -74.0060] },
+          { name: "Paris, France", coords: [48.8566, 2.3522] }
+        ];
+    
+        places.forEach(function(place) {
+          L.marker(place.coords).addTo(map).bindPopup(place.name);
+        });
+      }
+    }
+    // END: Add this function
+    
     function loadPage(page) {
       document.getElementById('content').innerHTML = pages[page] || pages.home;
       document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
       document.querySelector(`.nav a[data-page="${page}"]`).classList.add('active');
+      if(page === 'travel') {
+        setTimeout(initTravelMap, 0); // Ensures the map div exists before initializing
+      }
     }
 
     document.querySelectorAll('.nav a').forEach(a => {
