@@ -114,7 +114,8 @@
     // START: Add this function after the pages object
     function initTravelMap() {
       if(document.getElementById('map')) {
-        var map = L.map('map').setView([49.5, -123], 5);
+        //var map = L.map('map').setView([49.5, -123], 5);
+        map.fitBounds(bounds, {padding: [40, 40]});
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '© OpenStreetMap contributors'
         }).addTo(map);
@@ -143,6 +144,7 @@
               className: 'custom-tooltip' // for additional CSS if needed
             })
             .openTooltip();
+          bounds.push(place.coords);
         });
       }
     }
