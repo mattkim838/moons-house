@@ -56,6 +56,26 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+  /* Map container styling */
+  #map {
+    width: 100%;
+    max-width: 700px;
+    height: 500px;
+    margin: 0 auto 2rem auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.13), 0 1.5px 4px rgba(0,0,0,0.10);
+    border: 2px solid #d4e3e7;
+    /* Optional: desaturate map for a more pastel look */
+    filter: grayscale(0.12) contrast(1.05);
+  }
+  /* Optional: style Leaflet controls/buttons */
+  .leaflet-control {
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-size: 1rem;
+  }
+  </style>
 </head>
 <body>
   <nav class="nav">
@@ -94,7 +114,7 @@
     // START: Add this function after the pages object
     function initTravelMap() {
       if(document.getElementById('map')) {
-        var map = L.map('map').setView([20, 0], 2);
+        var map = L.map('map').setView([49.5, -123], 5);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '© OpenStreetMap contributors'
         }).addTo(map);
@@ -108,9 +128,21 @@
             { name: "Las Vegas, USA", coords: [36.1699, -115.1398] },
             { name: "Hawaii, USA", coords: [20.7967, -156.3319] }
         ];
-    
+        var pinIcon = L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+          iconSize: [30, 42],
+          iconAnchor: [15, 41],
+          popupAnchor: [1, -34],
+          tooltipAnchor: [12, -30]
+        });
         places.forEach(function(place) {
-          L.marker(place.coords).addTo(map).bindPopup(place.name);
+          L.marker(place.coords, {icon: pinIcon}).addTo(map)
+            .bindTooltip(place.name, {
+              permanent: true,      // always visible
+              direction: 'top',     // above the marker
+              className: 'custom-tooltip' // for additional CSS if needed
+            })
+            .openTooltip();
         });
       }
     }
