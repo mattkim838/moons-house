@@ -59,10 +59,11 @@
   <style>
   /* Map container styling */
   #map {
-    width: 100%;
-    max-width: 700px;
-    height: 500px;
-    margin: 0 auto 2rem auto;
+    width: 98vw;             /* Use almost the whole viewport width */
+    max-width: 1200px;       /* Allow it to be much wider */
+    height: 70vh;            /* Make it taller—70% of viewport height */
+    min-height: 550px;       /* Ensures it's always tall enough */
+    margin: 2rem auto;       /* More balanced margin (top/bottom and centered) */
     border-radius: 16px;
     box-shadow: 0 4px 32px rgba(0,0,0,0.13), 0 1.5px 4px rgba(0,0,0,0.10);
     border: 2px solid #d4e3e7;
